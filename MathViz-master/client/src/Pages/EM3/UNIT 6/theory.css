@@ -1,0 +1,69 @@
+.theory{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-inline: 5%;
+}
+.container{
+    /* display: flex; */
+    justify-content: center;
+}
+.headingname h1{
+    font-family: Roboto;
+    font-weight: 100;
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 30px;
+
+}
+.theory p{
+    font-weight: 400;
+
+}
+
+
+.theory img{
+    width: 350px;
+}
+.calculationbox{
+    padding-inline: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 60vh;
+    margin-top: 2%;
+}
+
+.inputboxes{
+    width: 40%;
+}
+.graph{
+    width: 100%;
+}
+.graphimg{
+    width: 100%;
+}
+@media (max-width: 600px) {
+    .inputboxes{
+        width: 100%;
+    }
+    .calculationbox{
+        padding-inline: 5%;
+        display: flex;
+        flex-direction: column;
+    }
+    .graph{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+@media (max-width: 400px) {
+    .theory{
+        padding-inline: 2%;
+    }
+.theory img{
+    width: 80%;
+}    
+}

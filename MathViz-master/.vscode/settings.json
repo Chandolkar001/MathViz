@@ -1,0 +1,4 @@
+{
+  "python.formatting.provider": "black",
+  "python.analysis.extraPaths": ["./server/venv/lib/python3.7/site-packages", "~/.pyenv/versions/3.7.8/lib/python3.7/site-packages"]
+}

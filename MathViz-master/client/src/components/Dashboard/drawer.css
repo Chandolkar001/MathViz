@@ -1,0 +1,13 @@
+/* .boxdrawer{
+    height: 90vh;
+    max-height: max-content;
+    overflow-y: scroll;
+}
+.boxdrawer::-webkit-scrollbar{
+    width: 0%;
+}
+
+
+.css-12i7wg6-MuiPaper-root-MuiDrawer-paper{
+    overflow-y: hidden;
+} */

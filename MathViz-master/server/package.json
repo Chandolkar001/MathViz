@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "matplotlib": "^1.0.0",
+    "nodemon": "^2.0.15",
+    "prettytable": "^0.3.1"
+  }
+}

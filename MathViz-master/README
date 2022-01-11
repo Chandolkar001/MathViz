@@ -1,0 +1,32 @@
+
+
+# How to run the project
+
+docker-compose build 
+docker-compose up
+
+# clean up containers 
+docker-compose down
+
+
+# Video tutorial on how the project is setup:
+https://www.youtube.com/watch?v=ByUWienlDDA
+
+
+# Server Setup 
+
+## LOCAL Installation
+
+### information about flask
+
+https://flask.palletsprojects.com/en/2.0.x/installation/
+
+### Material UI components
+https://mui.com/components/buttons/
+
+### React School
+https://react.school/ui/input
+
+### using matplotlib to build plots and render from Server
+
+https://frank.sauerburger.io/2020/06/17/serverside-matplotlib.html

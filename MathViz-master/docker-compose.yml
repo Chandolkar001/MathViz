@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  server:
+    restart: "on-failure"
+    build: ./server
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./server:/app
+    environment:
+      FLASK_ENV: development
+  web:
+    restart: "on-failure"
+    build: ./client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/user/src/app
+    depends_on:
+      - server

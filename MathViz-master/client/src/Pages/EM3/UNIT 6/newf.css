@@ -1,0 +1,45 @@
+.theory .newfimg{
+    width: 70%;
+}
+.table{
+    /* width: max-content; */
+    max-width: 300px;
+    overflow-x: scroll;
+    padding-left: 5%;
+    display: flex;
+    justify-content: center;
+}
+.table table thead tr,
+.table table tbody tr{
+    display: flex;
+    /* column-gap: 50px; */
+    justify-content: space-evenly;
+}
+.table table tbody tr td,
+.table table thead tr th{
+    /* text-align: left; */
+    width: 50px;
+    /* padding-left: 10px; */
+}
+
+@media (max-width: 768px) {
+    .table{
+        width: 90%;
+        padding-inline-start: 50%;
+    }
+    
+    .table table thead tr th,
+    .table table tbody tr td{
+        width: 35px;
+    }
+}
+@media (max-width: 600px) {
+    .theory .newfimg{
+        width: 100%;
+    }
+    .table table thead tr th,
+    .table table tbody tr td{
+        width: 50px;
+    }
+
+}

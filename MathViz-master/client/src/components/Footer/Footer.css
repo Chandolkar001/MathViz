@@ -1,0 +1,12 @@
+.heading-footer{
+    text-align: center;
+    font-size: 4rem;
+    font-family: 'The Girl Next Door', cursive;
+    color: rgb(100, 226, 163);
+    margin: 10px;
+    font-weight: 100;
+}
+
+.heading>span{
+    font-size: 10rem;
+}

@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+nav>ul {
+    list-style: none; 
+    display: inline;
+}
+
+.NavBar li{
+    display: inline;
+    flex-direction: row;
+    margin: 50px;
+}
+
+.drawer{
+    background-color: black;
+}
