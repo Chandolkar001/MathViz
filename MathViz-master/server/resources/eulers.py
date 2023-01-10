@@ -7,7 +7,6 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from flask.helpers import make_response
 from flask import Blueprint, request, logging, current_app, Response, jsonify
 from math import *
-import sys
 
 eulers = Blueprint("eulers", __name__)
 
@@ -15,11 +14,9 @@ eulers = Blueprint("eulers", __name__)
 @eulers.route("/run", methods=["POST"])
 def post():
     input = request.json
-    # x = sp.Rational('x0')
-    # y = sp.Rational('y0')
     x = sp.var("x")
     y = sp.var("y")
-    partitions = input["partitions"] if "partitions" in input else None
+    partitions = None
     fx = input["fx"]
     fx = sp.sympify(fx)
 
@@ -27,8 +24,6 @@ def post():
     y0 = float(input["y0"])
 
     xn = float(input["xn"])
-    h = sp.nsimplify((xn - x0) / partitions)
-    print(x0)
     current_app.logger.info(
         f"fx = {fx},  x0 = {x0} y0 = {y0} xn = {xn} partitions = {partitions}"
     )
@@ -46,11 +41,46 @@ def post():
         # ax.vlines(x=x_l, ymin=min(min(y_plot), 0), ymax=max(max(y_plot), 0))
         # ax.vlines(x=x_u, ymin=min(min(y_plot), 0), ymax=max(max(y_plot), 0))
 
-        # PART : 2
-        if partitions:
-            x0 = float(x0)
-            y0 = float(y0)
-            xn = float(xn)
+    except Exception as e:
+        current_app.logger.exception("Something went wrong")
+        ax.set_title("Error: Something went wrong")
+
+    with io.BytesIO() as pseudo_file:
+        FigureCanvas(fig).print_png(pseudo_file)
+        content = pseudo_file.getvalue()
+        return Response(content, mimetype="image/png")
+
+
+@eulers.route("/runGraphsII", methods=["POST"])  # With partition
+def postII():
+    input = request.json
+    x = sp.var("x")
+    y = sp.var("y")
+    partitions = input["partitions"] if "partitions" in input else None
+    fx = input["fx"]
+    fx = sp.sympify(fx)
+
+    x0 = float(input["x0"])
+    y0 = float(input["y0"])
+
+    xn = float(input["xn"])
+    h = sp.nsimplify((xn - x0) / partitions)
+    current_app.logger.info(
+        f"fx = {fx},  x0 = {x0} y0 = {y0} xn = {xn} partitions = {partitions}"
+    )
+    # PART : 2
+    if partitions:
+        fig = Figure(figsize=(10, 10), dpi=80, facecolor="w", edgecolor="k")
+        ax = fig.subplots()
+
+        try:
+            ax.set_title(f"Eulers Method")
+
+            ax.set_xlabel("x")
+            ax.set_ylabel("y")
+            ax.axvline(x=0, color="b")
+            ax.axhline(y=0, color="b")
+
             h = float(h)
             l = float(xn - x0)
             n = partitions
@@ -74,14 +104,15 @@ def post():
                 Y.append(float(y_plot[19]))
 
             ax.vlines(x=X[n], ymin=0, ymax=Y[n])
-    except Exception as e:
-        current_app.logger.exception("Something went wrong")
-        ax.set_title("Error: Something went wrong")
 
-    with io.BytesIO() as pseudo_file:
-        FigureCanvas(fig).print_png(pseudo_file)
-        content = pseudo_file.getvalue()
-        return Response(content, mimetype="image/png")
+        except Exception as e:
+            current_app.logger.exception("Something went wrong")
+            ax.set_title("Error: Something went wrong")
+
+        with io.BytesIO() as pseudo_file:
+            FigureCanvas(fig).print_png(pseudo_file)
+            content = pseudo_file.getvalue()
+            return Response(content, mimetype="image/png")
 
 
 @eulers.route("/runtable", methods=["POST"])
@@ -92,16 +123,12 @@ def post1():
     partitions = input["partitions"] if "partitions" in input else None
     fx = input["fx"]
     fx = sp.sympify(fx)
-    
+
     x0 = float(input["x0"])
     y0 = float(input["y0"])
 
     xn = float(input["xn"])
 
-    # x0 = sp.Rational("x0")
-    # y0 = sp.Rational("y0")
-
-    # xn = sp.Rational("xn")
     h = sp.nsimplify((xn - x0) / partitions)
     print(x0)
     X = None
@@ -113,7 +140,7 @@ def post1():
     slope = None
     try:
         if partitions:
-            
+
             x0 = round(float(x0), 10)
             y0 = round(float(y0), 10)
             xn = round(float(xn), 10)
@@ -157,7 +184,7 @@ def post1():
         lst1.append(
             {
                 "key": i,
-                "one": points[i], 
+                "one": points[i],
                 "two": Dy[i],
                 "three": slope[i],
                 "four": Y_x[i],

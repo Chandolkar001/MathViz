@@ -5,6 +5,7 @@ from resources.simpsons import simpsons
 from resources.simpsons38 import simpsons38
 from resources.eulers import eulers
 from resources.newtonForward import newtonForward
+from resources.trapezoidal import trapezoidal
 from resources.ModifiedEuler import modifiedEulers
 from resources.NewtonBackward import newtonBackward
 from resources.rungeKutta import rungeKutta
@@ -16,9 +17,10 @@ app.register_blueprint(simpsons38, url_prefix="/api/simpsons38")
 app.register_blueprint(eulers, url_prefix="/api/eulers")
 app.register_blueprint(newtonForward, url_prefix="/api/newtonForward")
 app.register_blueprint(newtonBackward, url_prefix="/api/newtonBackward")
+app.register_blueprint(trapezoidal, url_prefix="/api/trapezoidal")
 app.register_blueprint(modifiedEulers, url_prefix="/api/modifiedEulers")
 app.register_blueprint(rungeKutta, url_prefix="/api/rungeKutta")
-
+# app.config['SECRET_KEY'] = '0bf4e4cb188288bd1303d6d6'
 
 @app.route("/test", methods=["GET"])
 def data():
