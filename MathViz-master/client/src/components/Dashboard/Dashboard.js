@@ -12,14 +12,16 @@ import EM3 from '../../Pages/EM3/EM3';
 import Simpsons from '../../Pages/EM3/UNIT 6/Simpsons';
 import Drawer from './Drawer';
 import Footer from '../Footer/Footer';
+import Navbar from '../Navbar/Navbar';
 
 function Dashboard() {
   return (
     <>
       <div className='NavBar'>
         <ul>
-          <li style={{scrollbarWidth: 0}}>
+          <li style={{ scrollbarWidth: 0 }}>
             <Drawer />
+            <Navbar />
           </li>
           <li>
             <Link to='/'>Home</Link>

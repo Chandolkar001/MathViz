@@ -20,7 +20,20 @@
     font-weight: 400;
 
 }
-
+.steptheory{
+    text-align: left;
+    margin: 10px;
+    color: black;
+}
+.steptheoryred{
+    color: red;
+    margin: 10px;
+}
+.styledimg{
+    width: 30vw;
+    box-shadow: 0 0 8px #000000;
+    margin-top: 10px;
+}
 
 .theory img{
     width: 350px;
@@ -66,4 +79,14 @@
 .theory img{
     width: 80%;
 }    
+}
+
+.theory-heading-text{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.theory-text{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
+    text-align: justify;
 }

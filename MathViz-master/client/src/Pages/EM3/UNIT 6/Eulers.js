@@ -1,26 +1,22 @@
-import { useEffect, useState } from 'react';
-import TextField from '@mui/material/TextField';
-import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
+import { useEffect, useState } from "react";
+import TextField from "@mui/material/TextField";
+import { styled } from "@mui/material/styles";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import "./theory.css";
-import eul from './euler.svg';
+import "./eul2.css";
+import eul from "./euler.svg";
 
-import {
-    Paper,
-    CircularProgress,
-    LinearProgress,
-    Button,
-  } from '@mui/material';
+import { Paper, CircularProgress, LinearProgress, Button } from "@mui/material";
 
 const P = styled(Paper)(({ theme }) => ({
-   padding: theme.spacing(1),
-   textAlign: 'center',
-   color: theme.palette.text.secondary,
+  padding: theme.spacing(1),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
 }));
 
 function Item(props) {
@@ -34,11 +30,11 @@ function Item(props) {
 export default function Eulers() {
   //const [mode, setMode] = useState("select");
   const [loading, setLoading] = useState(false);
- // const isVisible = mode !== "select" ? true : false;
+  // const isVisible = mode !== "select" ? true : false;
   const [fx, setFx] = useState();
   const [xintial, setXintial] = useState();
   const [yintial, setYintial] = useState();
-  const [xinput , setXinput] = useState();
+  const [xinput, setXinput] = useState();
   const [partitions, setPartitions] = useState();
   const [showPartitions, setShowPartitions] = useState(false);
   const [resp, setResp] = useState();
@@ -51,10 +47,10 @@ export default function Eulers() {
     { key: 4, one: null, two: null, three: null, four: null },
   ]);
   const [rows2, setRows2] = useState([
-    { key: 1, one: null, two: null},
-    { key: 2, one: null, two: null},
-    { key: 3, one: null, two: null},
-    { key: 4, one: null, two: null},
+    { key: 1, one: null, two: null },
+    { key: 2, one: null, two: null },
+    { key: 3, one: null, two: null },
+    { key: 4, one: null, two: null },
   ]);
 
   useEffect(() => {
@@ -68,7 +64,7 @@ export default function Eulers() {
   const apiCall = () => {
     //if (!isVisible) return;
     const data = {
-     // mode,
+      // mode,
       fx,
       x0: xintial,
       y0: yintial,
@@ -91,7 +87,6 @@ export default function Eulers() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-        
       })
         .then((r) => {
           return r.blob();
@@ -126,15 +121,16 @@ export default function Eulers() {
         </div>
         <div className="theory">
           <p>
-          In mathematics and computational science, the Euler method (also called forward Euler method) is a 
-          first-order numerical procedure for solving ordinary differential equations 
-          (ODEs) with a given initial value.
-          The Euler method is named after Leonhard Euler, 
-          who treated it in his book Institutionum calculi integralis (published 1768–1870).
-          The Euler method is a first-order method,
-           which means that the local error (error per step) is proportional to the square of the step size,
-            and the global error (error at a given time) is proportional to the step size.
-           The Euler method often serves as the basis to construct more complex methods.
+            In mathematics and computational science, the Euler method (also
+            called forward Euler method) is a first-order numerical procedure
+            for solving ordinary differential equations (ODEs) with a given
+            initial value. The Euler method is named after Leonhard Euler, who
+            treated it in his book Institutionum calculi integralis (published
+            1768–1870). The Euler method is a first-order method, which means
+            that the local error (error per step) is proportional to the square
+            of the step size, and the global error (error at a given time) is
+            proportional to the step size. The Euler method often serves as the
+            basis to construct more complex methods.
             <br></br>
           </p>
           <center>
@@ -144,29 +140,13 @@ export default function Eulers() {
       </div>
       <div className="container calculationbox">
         <div className="inputboxes">
-          <Item>
-            {/* <label>
-              Enter mode as :{" "}
-              <select
-                onChange={(e) => {
-                  if (e.target.value) {
-                    setMode(e.target.value);
-                  }
-                }}
-                value={mode}
-              >
-                <option value="select">select</option>
-                <option value="radian">radian</option>
-                <option value="degrees">degrees</option>
-              </select>
-            </label> */}
-          </Item>
-          {//isVisible &&
-           (
+          {
+            //isVisible &&
             <>
               <Item>
                 <label>
                   Enter dY/dX {" : "}
+                  <br />
                   <TextField
                     label="dY/dX"
                     variant="outlined"
@@ -180,7 +160,7 @@ export default function Eulers() {
               </Item>
               <Item>
                 <label>
-                  initial value of X{" "}
+                  initial value of X <br />
                   <TextField
                     label="x intial"
                     variant="outlined"
@@ -197,7 +177,7 @@ export default function Eulers() {
               </Item>
               <Item>
                 <label>
-                  Y intial{" "}
+                  Y intial <br />
                   <TextField
                     label="y initial"
                     variant="outlined"
@@ -214,7 +194,7 @@ export default function Eulers() {
               </Item>
               <Item>
                 <label>
-                  X at which y is evaluated{" "}
+                  X at which y is evaluated <br />
                   <TextField
                     label="x input "
                     variant="outlined"
@@ -229,11 +209,11 @@ export default function Eulers() {
                   />
                 </label>
               </Item>
-              { //showPartitions &&
-               (
+              {
+                //showPartitions &&
                 <Item>
                   <label>
-                    partitions{" "}
+                    partitions <br />
                     <TextField
                       label="partitions"
                       variant="outlined"
@@ -248,7 +228,7 @@ export default function Eulers() {
                     />
                   </label>
                 </Item>
-              )}
+              }
               <Item>
                 {loading ? (
                   <CircularProgress />
@@ -256,16 +236,23 @@ export default function Eulers() {
                   <Button onClick={apiCall}> Submit </Button>
                 )}
               </Item>
-              <Item>
-                {showPartitions && (
+              {showPartitions && (
+                <Item>
                   <TableContainer component={Paper}>
                     <Table aria-label="simple table">
                       <TableHead>
                         <TableRow>
-                          <TableCell align="center">(x<sub>i</sub> ,y<sub>i</sub>)</TableCell>
+                          <TableCell align="center">
+                            (x<sub>i</sub> ,y<sub>i</sub>)
+                          </TableCell>
                           <TableCell align="center">m= dy/dx</TableCell>
-                          <TableCell align="center">θ =tan<sup>-1</sup>(m)</TableCell>
-                          <TableCell align="center">y<sub>i+1</sub>=y<sub>i</sub> + hf(x<sub>i</sub>,y<sub>i</sub>)</TableCell>
+                          <TableCell align="center">
+                            θ =tan<sup>-1</sup>(m)
+                          </TableCell>
+                          <TableCell align="center">
+                            y<sub>i+1</sub>=y<sub>i</sub> + hf(x<sub>i</sub>,y
+                            <sub>i</sub>)
+                          </TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -291,16 +278,24 @@ export default function Eulers() {
                       </TableBody>
                     </Table>
                   </TableContainer>
-                )}
-              </Item>
-              <Item>
-                {showPartitions && (
+                </Item>
+              )}
+              {showPartitions && (
+                <Item className="tableitem">
                   <TableContainer component={Paper}>
-                    <Table aria-label="simple table">
+                    <Table
+                      className="table"
+                      id="tableid"
+                      aria-label="simple table"
+                    >
                       <TableHead>
                         <TableRow>
-                          <TableCell align="center">x<sub>i</sub></TableCell>
-                          <TableCell align="center">y<sub>i</sub></TableCell>
+                          <TableCell align="center">
+                            x<sub>i</sub>
+                          </TableCell>
+                          <TableCell align="center">
+                            y<sub>i</sub>
+                          </TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -324,36 +319,37 @@ export default function Eulers() {
                       </TableBody>
                     </Table>
                   </TableContainer>
-                )}
-              </Item>
-              
-              <Item>
-                <TableContainer>
-                  <Table aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell align="center">Y actual</TableCell>
-                        <TableCell align="center">{actual}</TableCell>
-                        <TableCell align="center">Y calculated</TableCell>
-                        <TableCell align="center">{calculated}</TableCell>
-                      </TableRow>
-                    </TableHead>
-                  </Table>
-                </TableContainer>
-              </Item>
+                </Item>
+              )}
+
+              {actual ||
+                (calculated && (
+                  <Item>
+                    <TableContainer>
+                      <Table aria-label="simple table">
+                        <TableHead>
+                          <TableRow>
+                            <TableCell align="center">Y actual</TableCell>
+                            <TableCell align="center">{actual}</TableCell>
+                            <TableCell align="center">Y calculated</TableCell>
+                            <TableCell align="center">{calculated}</TableCell>
+                          </TableRow>
+                        </TableHead>
+                      </Table>
+                    </TableContainer>
+                  </Item>
+                ))}
             </>
-          )}
+          }
         </div>
         {
-          //isVisible &&
-        (
           <div className="graph">
             {loading && <LinearProgress color="inherit" />}
             {resp && (
               <img className="graphimg" src={resp} alt="... loading "></img>
             )}
           </div>
-        )}
+        }
       </div>
     </>
   );

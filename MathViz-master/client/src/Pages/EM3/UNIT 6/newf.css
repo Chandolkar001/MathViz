@@ -5,9 +5,9 @@
     /* width: max-content; */
     max-width: 300px;
     overflow-x: scroll;
-    padding-left: 5%;
-    display: flex;
-    justify-content: center;
+    /* padding-left: 5%; */
+    /* display: flex; */
+    /* justify-content: center; */
 }
 .table table thead tr,
 .table table tbody tr{
@@ -25,7 +25,7 @@
 @media (max-width: 768px) {
     .table{
         width: 90%;
-        padding-inline-start: 50%;
+        /* padding-inline-start: 50%; */
     }
     
     .table table thead tr th,

@@ -114,7 +114,7 @@ function EM2() {
           <hr></hr>
           <Grid container style={{ marginTop: 15 }}>
             {unit.topics.map((topic) => (
-              <Grid item md={6}>
+              <Grid item xs={12} md={6}>
                 <Link to={topic.link} className='concept'>
                   {topic.name}
                 </Link>

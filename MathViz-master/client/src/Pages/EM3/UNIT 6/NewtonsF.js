@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import { styled } from "@mui/material/styles";
+import { Grid } from "@mui/material";
 import newf from "./newf.png";
 import "./theory.css";
 import "./newf.css";
@@ -71,24 +72,22 @@ export default function NewtonsF() {
           setRun(URL.createObjectURL(imageBlob));
         });
 
-      if (xc !== undefined) {
-        fetch("/api/newtonForward/runtable", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
+      fetch("/api/newtonForward/runtable", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((r) => {
+          return r.blob();
         })
-          .then((r) => {
-            return r.blob();
-          })
-          .then((imageBlob) => {
-            setLoading(false);
-            setRuntable(URL.createObjectURL(imageBlob));
-            setShowrun(false);
-            // setShowPartitions(true);
-          });
-      }
+        .then((imageBlob) => {
+          setLoading(false);
+          setRuntable(URL.createObjectURL(imageBlob));
+          setShowrun(false);
+          // setShowPartitions(true);
+        });
 
       // fetch("/api/newtonForward/table", {
       //   method: "POST",
@@ -129,76 +128,77 @@ export default function NewtonsF() {
   };
   return (
     <>
-      <div className="container">
-        <div className="headingname">
-          <h1>Newton's forward interpolation</h1>
-        </div>
-        <div className="theory">
-          <p>
-            {" "}
-            This formula is particularly useful for interpolating the values of
+    <Grid container spacing={2} sx={{paddingInline: "15%"}}>
+      <Grid item xs={12}>
+      <h1>Newton's forward interpolation</h1>
+      </Grid>
+      <Grid item xs={12}>
+      <p className="theory-text">
+          {" "}
+          <i>
+          This formula is particularly useful for interpolating the values of
             f(x) near the beginning of the set of values given. h is called the
             interval of difference and u = ( x – a ) / h, Here a is the first
             term.
-            <br></br>
-          </p>
-          <center>
-            <img src={newf} alt="formula" className="newfimg" />
-          </center>
-        </div>
-      </div>
-      <div className="container calculationbox">
-        <div className="inputboxes">
-          <Item>
-            <label>
-              Enter Values of x {" : "}
+          </i>
+          <br></br>
+        </p>
+      </Grid>
+      <Grid item xs={12}>
+        <center>
+          <img src={newf} alt="formula" style={{width: "60%"}} />
+        </center>
+      </Grid>
+    <Grid item xs={12} sm={6}>
+      {isVisible && (
+        <>
+        <Item>
+          <br />
+          <label>
+          Enter Values of x {" : "} &emsp;
+                <TextField
+                  label="Values of x(seperated by ',')"
+                  variant="filled"
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      setx(e.target.value);
+                    }
+                  }}
+                />
+              </label>
               <br />
               <br />
-              <TextField
-                label="Values of x(seperated by ',')"
-                variant="outlined"
-                onChange={(e) => {
-                  if (e.target.value) {
-                    setx(e.target.value);
-                  }
-                }}
-              />
-            </label>
-          </Item>
-          <Item>
-            <label>
+              <label>
               Enter Values of y {" : "}
-              <br />
-              <br />
-              <TextField
-                label="Values of y(seperated by ',')"
-                variant="outlined"
-                onChange={(e) => {
-                  if (e.target.value) {
-                    setY(e.target.value);
-                  }
-                }}
-              />
-            </label>
-          </Item>
-          {table && (
+                <TextField
+                  label="Values of y(seperated by ',')"
+                  variant="filled"
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      setY(e.target.value);
+                    }
+                  }}
+                />
+              </label>
+        </Item>
+        {table && (
             <Item>
-              <div
-                className="table"
-                id="tableid"
-                dangerouslySetInnerHTML={{ __html: table }}
-              ></div>
+              <center>
+                <div
+                  className="table"
+                  id="tableid"
+                  dangerouslySetInnerHTML={{ __html: table }}
+                ></div>
+              </center>
             </Item>
           )}
-          {showxc && (
+             {showxc && (
             <Item>
               <label>
                 Enter differnt Values of x {" : "}
-                <br />
-                <br />
                 <TextField
                   label="Value of x"
-                  variant="outlined"
+                  variant="filled"
                   onChange={(e) => {
                     if (e.target.value) {
                       setXc(e.target.value);
@@ -213,27 +213,33 @@ export default function NewtonsF() {
               at x = {xc} , y = {valueY}
             </Item>
           )}
-
           <Item>
-            {loading ? (
-              <CircularProgress />
-            ) : (
-              <Button onClick={apiCall}> Submit </Button>
-            )}
+          <center>
+          <Button onClick={apiCall}> Submit </Button>
+          </center>
           </Item>
-        </div>
+        </>
+      )}
+    </Grid>
+      <Grid item xs={12} sm={6}>
         {isVisible && (
           <div className="graph">
             {loading && <LinearProgress color="inherit" />}
-            {showrun && run && (
-              <img className="graphimg" src={run} alt="... loading "></img>
-            )}
             {runtable && (
-              <img className="graphimg" src={runtable} alt="... loading "></img>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <img className="graphimg" src={runtable} alt="... loading "></img>
+                {/* {graphII && <img
+                  style={{ width: "35vw" }}
+                  src={graphII}
+                  alt="... loading "
+                ></img>} */}
+              </div>
             )}
           </div>
         )}
-      </div>
+      </Grid>
+    </Grid>
+     
     </>
   );
 }

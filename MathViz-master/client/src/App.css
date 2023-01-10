@@ -1,7 +1,7 @@
 *{
     margin: 0;
     padding: 0;
-    
+    overflow-x: hidden;
 }
 
 /* width */
@@ -34,3 +34,9 @@
 ::-webkit-scrollbar-thumb:horizontal {
     display: none;
   }
+
+.app-container{
+  display: flex;
+  flex-direction: column;
+  justify-content:stretch;
+}

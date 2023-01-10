@@ -137,29 +137,14 @@ export default function ModifiedEuler() {
       </div>
       <div className="container calculationbox">
         <div className="inputboxes">
-          <Item>
-            {/* <label>
-              Enter mode as :{" "}
-              <select
-                onChange={(e) => {
-                  if (e.target.value) {
-                    setMode(e.target.value);
-                  }
-                }}
-                value={mode}
-              >
-                <option value="select">select</option>
-                <option value="radian">radian</option>
-                <option value="degrees">degrees</option>
-              </select>
-            </label> */}
-          </Item>
+        
           {//isVisible &&
            (
             <>
               <Item>
                 <label>
                   Enter dY/dX {" : "}
+                  <br/>
                   <TextField
                     label="dY/dX"
                     variant="outlined"
@@ -174,6 +159,7 @@ export default function ModifiedEuler() {
               <Item>
                 <label>
                   initial value of X{" "}
+                  <br/>
                   <TextField
                     label="x intial"
                     variant="outlined"
@@ -191,6 +177,7 @@ export default function ModifiedEuler() {
               <Item>
                 <label>
                   Y intial{" "}
+                  <br/>
                   <TextField
                     label="y initial"
                     variant="outlined"
@@ -208,6 +195,7 @@ export default function ModifiedEuler() {
               <Item>
                 <label>
                   X at which y is evaluated{" "}
+                  <br/>
                   <TextField
                     label="x input "
                     variant="outlined"
@@ -227,6 +215,7 @@ export default function ModifiedEuler() {
                 <Item>
                   <label>
                     partitions{" "}
+                    <br/>
                     <TextField
                       label="partitions"
                       variant="outlined"
@@ -250,8 +239,8 @@ export default function ModifiedEuler() {
                 )}
               </Item>
               
-              <Item>
                 {showPartitions && (
+              <Item>
                   <TableContainer component={Paper}>
                     <Table aria-label="simple table">
                       <TableHead>
@@ -283,10 +272,10 @@ export default function ModifiedEuler() {
                       </TableBody>
                     </Table>
                   </TableContainer>
-                )}
               </Item>
+                )}
               
-              <Item>
+              {actual && <Item>
                 <TableContainer>
                   <Table aria-label="simple table">
                     <TableHead>
@@ -297,7 +286,7 @@ export default function ModifiedEuler() {
                     </TableHead>
                   </Table>
                 </TableContainer>
-              </Item>
+              </Item>}
             </>
           )}
         </div>

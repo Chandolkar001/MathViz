@@ -4,26 +4,19 @@
 }
 .table table tbody tr td,
 .table table thead tr th{
-    text-align: left;
+    text-align: center;
+    border: 1px solid gray;
+    overflow-x: scroll;
+
 }
 
 @media (max-width: 768px) {
-    .table{
-        padding-inline-start: 30%;
-    }
     .tableitem{
         display: flex;
         justify-content: center;
     }
-    .table table thead tr th,
-    .table table tbody tr td{
-        width: 100px;
-    }
     
 }
-@media (max-width : 600px) {
-    .table{
-        padding-inline-start: 20%;
-    }
+/* @media (max-width : 600px) {
     
-}
+} */

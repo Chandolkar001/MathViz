@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
-import TextField from "@mui/material/TextField";
-import { styled } from "@mui/material/styles";
-import simp from "./simpsons.svg";
-import "./theory.css";
-import "./runkutta.css"
+import { useEffect, useState } from 'react';
+import TextField from '@mui/material/TextField';
+import { styled } from '@mui/material/styles';
+import simp from './simpsons.svg';
+import './theory.css';
+import './runkutta.css';
 
-import { Paper, CircularProgress, LinearProgress, Button } from "@mui/material";
+import { Paper, CircularProgress, LinearProgress, Button } from '@mui/material';
 
 const P = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
-  textAlign: "center",
+  textAlign: 'center',
   color: theme.palette.text.secondary,
 }));
 
 function Item(props) {
   return (
-    <P variant="outlined" square>
+    <P variant='outlined' square>
       {props.children}
     </P>
   );
@@ -24,79 +24,81 @@ function Item(props) {
 export default function Simpsons() {
   const [loading, setLoading] = useState(false);
   const isVisible = true;
-  const [fx, setFx] = useState();
-  const [xLower, setXLower] = useState();
-  const [xUpper, setXUpper] = useState();
+  const [dy_dx, setdy_dx] = useState();
+  const [x0, setx0] = useState();
+  const [y0, sety0] = useState();
   const [xn, setXn] = useState();
-  const [partitions, setPartitions] = useState();
+  const [n, setn] = useState();
   const [run, setRun] = useState();
   const [table, setTable] = useState();
 
   useEffect(() => {
-    document.title = "Simpsons: Enter the Integrand and its limits";
+    document.title = 'Simpsons: Enter the Integrand and its limits';
   });
-  useEffect(() => {
-    if (!isVisible) {
-      setRun();
-    }
-  }, [isVisible]);
+
   const apiCall = () => {
-    if (!isVisible) return;
     const data = {
-      dy_dx: fx,
-      x0: xLower,
-      y0: xUpper,
-      xn: xn,
-      n: partitions,
+      dy_dx,
+      x0,
+      y0,
+      xn,
+      n,
     };
     console.log(JSON.stringify(data));
     if (
-      fx !== undefined &&
-      xLower !== undefined &&
-      xUpper !== undefined &&
+      dy_dx !== undefined &&
+      x0 !== undefined &&
+      y0 !== undefined &&
       xn !== undefined &&
-      partitions !== undefined
+      n !== undefined
     ) {
       setLoading(true);
-      fetch("/api/rungeKutta/run", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((r) => {
-          return r.blob();
+      try {
+        fetch('/api/rungeKutta/run', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
         })
-        .then((imageBlob) => {
-          setLoading(false);
-          setRun(URL.createObjectURL(imageBlob));
-        });
+          .then((r) => {
+            return r.blob();
+          })
+          .then((imageBlob) => {
+            setLoading(false);
+            setRun(URL.createObjectURL(imageBlob));
+          });
+      } catch (err) {
+        console.log(err);
+      }
 
-      fetch("/api/rungeKutta/runtable", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }).then((r) => {
-        r.json().then((response) => {
-          setTable(response.Img);
-          // console.log(response.img)
-          // document.getElementById("tableid").innerHTML=response.img
+      try {
+        fetch('/api/rungeKutta/runtable', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        }).then((r) => {
+          r.json().then((response) => {
+            setTable(response.Img);
+          });
         });
-      });
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
+
   return (
     <>
-      <div className="container">
-        <div className="headingname">
+      <div className='container'>
+        <div className='headingname'>
           <h1>RungeKutta</h1>
         </div>
-        <div className="theory">
+        <div className='theory'>
           <p>
-            {" "}
+            {' '}
             In numerical integration, Simpson's rules are several approximations
             for definite integrals, named after Thomas Simpson (1710–1761). The
             most basic of these rules, called Simpson's 1/3rd rule, or just
@@ -104,108 +106,84 @@ export default function Simpsons() {
             <br></br>
           </p>
           <center>
-            <img src={simp} alt="formula" />
+            <img src={simp} alt='formula' />
           </center>
         </div>
       </div>
-      <div className="container calculationbox">
-        <div className="inputboxes">
+      <div className='container calculationbox'>
+        <div className='inputboxes'>
           <Item>
             <label>
-              Enter f(x)(dy/dx) {" : "}
-              <br/>
+              Enter f(x)(dy/dx) {' : '}
+              <br />
               <TextField
-                label="f(x)"
-                variant="outlined"
+                label='f(x)'
+                variant='outlined'
                 onChange={(e) => {
-                  if (e.target.value) {
-                    setFx(e.target.value);
-                  }
+                  setdy_dx(e.target.value);
                 }}
               />
             </label>
           </Item>
           <Item>
             <label>
-              Value of x{" "}
-              <br/>
+              Value of x <br />
               <TextField
-                label="Value of x"
-                variant="outlined"
-                defaultValue={xLower}
+                label='Value of x'
+                variant='outlined'
                 onChange={(e) => {
-                  if (e.target.value) {
-                    setXLower(Number(e.target.value));
-                  } else {
-                    setXLower(undefined);
-                  }
+                  setx0(Number(e.target.value));
                 }}
               />
             </label>
           </Item>
           <Item>
             <label>
-            Value of y{" "}
-            <br/>
+              Value of y <br />
               <TextField
-                label="Value of y"
-                variant="outlined"
-                defaultValue={xUpper}
+                label='Value of y'
+                variant='outlined'
                 onChange={(e) => {
-                  if (e.target.value) {
-                    setXUpper(Number(e.target.value));
-                  } else {
-                    setXUpper(undefined);
-                  }
+                  sety0(Number(e.target.value));
                 }}
               />
             </label>
           </Item>
           <Item>
             <label>
-              Value of x to evaluate y{" "}
-              <br/>
+              Value of x to evaluate y <br />
               <TextField
-                label="Value of x to evaluate y"
-                variant="outlined"
-                defaultValue={xUpper}
+                label='Value of x to evaluate y'
+                variant='outlined'
                 onChange={(e) => {
-                  if (e.target.value) {
-                    setXn(Number(e.target.value));
-                  } else {
-                    setXn(undefined);
-                  }
+                  setXn(Number(e.target.value));
                 }}
               />
             </label>
           </Item>
           <Item>
             <label>
-              Partitions{" "}
-              <br/>
+              n <br />
               <TextField
-                label="Partitions"
-                variant="outlined"
-                defaultValue={xUpper}
+                label='n'
+                variant='outlined'
                 onChange={(e) => {
-                  if (e.target.value) {
-                    setPartitions(Number(e.target.value));
-                  } else {
-                    setPartitions(undefined);
-                  }
+                  setn(Number(e.target.value));
                 }}
               />
             </label>
           </Item>
-          {table && <Item className="tableitem">
-          <center>
-            <div
-              className="table"
-              id="tableid"
-              dangerouslySetInnerHTML={{ __html: table }}
-            ></div>
-          </center>
-          </Item>}
+          {table && (
+            <Item className='tableitem'>
+              <center>
+                <div
+                  className='table'
+                  id='tableid'
+                  dangerouslySetInnerHTML={{ __html: table }}
+                ></div>
+              </center>
+            </Item>
+          )}
           <Item>
             {loading ? (
               <CircularProgress />
@@ -215,10 +193,10 @@ export default function Simpsons() {
           </Item>
         </div>
         {isVisible && (
-          <div className="graph">
-            {loading && <LinearProgress color="inherit" />}
+          <div className='graph'>
+            {loading && <LinearProgress color='inherit' />}
             {run && (
-              <img className="graphimg" src={run} alt="... loading "></img>
+              <img className='graphimg' src={run} alt='... loading '></img>
             )}
           </div>
         )}
